@@ -1,0 +1,26 @@
+
+version: "2.0"
+
+services:
+
+  db:
+    build: ./_db
+      #image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: 12345
+    volumes:
+      - ./database:/var/lib/mysql
+    ports:
+      - 5555:3306
+
+
+  adminer:
+    build: ./_adminer
+      #image: adminer
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 5001:8080
